@@ -54,9 +54,6 @@ console.log(date.getZone()); // e.g. "Eastern Standard Time"
 
 // Get UTC full time with custom separator
 console.log(date.getUTCFullTime("-", true, true, true)); // e.g. "17-34-56"
-// It will include hours, minutes, seconds by default.
-//  even if you don't specify if they are present or not in parameters
-// Also default seperator is ":"
 ```
 
 ## Current state of this project
