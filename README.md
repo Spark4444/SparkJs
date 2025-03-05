@@ -10,7 +10,7 @@ This JavaScript library is made for better formatting for the default JavaScript
 
 Use the git clone command to copy it onto your computer
 ```bash
-git clone https://github.com/Spark4444/betterDateJs
+git clone https://github.com/Spark4444/BetterDateJs
 ```
 
 ## Usage
