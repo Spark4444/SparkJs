@@ -9,6 +9,15 @@ let originalGetHours = Date.prototype.getHours;
 let originalGetMinutes = Date.prototype.getMinutes;
 let originalGetSeconds = Date.prototype.getSeconds;
 let originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
+// UTC versions of the methods
+let originalUTCGetDay = Date.prototype.getUTCDay;
+let originalUTCGetMonth = Date.prototype.getUTCMonth;
+let originalUTCGetDate = Date.prototype.getUTCDate;
+let originalUTCGetFullYear = Date.prototype.getUTCFullYear;
+let originalUTCGetHours = Date.prototype.getUTCHours;
+let originalUTCGetMinutes = Date.prototype.getUTCMinutes;
+let originalUTCGetSeconds = Date.prototype.getUTCSeconds;
+let originalUTCGetTimezoneOffset = Date.prototype.getUTCOffset;
 
 // Get the timezone options for the user
 let timeZoneOptions = Intl.DateTimeFormat().resolvedOptions();
@@ -120,7 +129,7 @@ Date.prototype.getSeconds = function(asShort) {
 Date.prototype.getFullTime = function(seperator = ":", hours = true, minutes = true, seconds = true, hoursAsShort, minutesAsShort, secondsAsShort) {
     try {
         return [hours ? this.getHours(hoursAsShort) : "", minutes ? this.getMinutes(minutesAsShort) : "", seconds ? this.getSeconds(secondsAsShort) : ""]
-            .filter(Boolean)
+            .filter(value => value !== "")
             .join(seperator);
     } catch (error) {
         console.error("Error in getFullTime:", error);
@@ -185,6 +194,101 @@ Date.prototype.getZone = function() {
 // UTC versions of the methods
 // All of them have the same functionality as the methods before but they will be in UTC format
 
+Date.prototype.getUTCDay = function(asNumber, asShort) {
+    try {
+        if (asShort && asNumber) {
+            return originalUTCGetDay.call(this);
+        }
+        if (asShort) {
+            return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][originalUTCGetDay.call(this)];
+        }
+        if (asNumber) {
+            return padZero(originalUTCGetDay.call(this));
+        }
+        return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][originalUTCGetDay.call(this)];
+    } catch (error) {
+        console.error("Error in getUTCDay:", error);
+        return originalUTCGetDay.call(this);
+    }
+}
+
+Date.prototype.getUTCMonth = function(asNumber, asShort) {
+    try {
+        if (asShort && asNumber) {
+            return originalUTCGetMonth.call(this);
+        }
+        if (asShort) {
+            return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][originalUTCGetMonth.call(this)];
+        }
+        if (asNumber) {
+            return padZero(originalUTCGetMonth.call(this));
+        }
+        return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][originalUTCGetMonth.call(this)];
+    } catch (error) {
+        console.error("Error in getUTCMonth:", error);
+        return originalUTCGetMonth.call(this);
+    }
+}
+
+Date.prototype.getUTCDate = function(asShort) {
+    try {
+        return asShort ? originalUTCGetDate.call(this) : padZero(originalUTCGetDate.call(this));
+    } catch (error) {
+        console.error("Error in getUTCDate:", error);
+        return originalUTCGetDate.call(this);
+    }
+}
+
+// Date doesn't have getUTCYear method so i used getUTCFullYear instead
+Date.prototype.getUTCYear = function() {
+    try {
+        return originalUTCGetFullYear.call(this);
+    } catch (error) {
+        console.error("Error in getUTCYear:", error);
+        return originalUTCGetYear.call(this);
+    }
+}
+
+delete Date.prototype.getUTCFullYear;
+
+Date.prototype.getUTCHours = function(asShort) {
+    try {
+        return asShort ? originalUTCGetHours.call(this) : padZero(originalUTCGetHours.call(this));
+    } catch (error) {
+        console.error("Error in getUTCHours:", error);
+        return originalUTCGetHours.call(this);
+    }
+}
+
+Date.prototype.getUTCMinutes = function(asShort) {
+    try {
+        return asShort ? originalUTCGetMinutes.call(this) : padZero(originalUTCGetMinutes.call(this));
+    } catch (error) {
+        console.error("Error in getUTCMinutes:", error);
+        return originalUTCGetMinutes.call(this);
+    }
+}
+
+Date.prototype.getUTCSeconds = function(asShort) {
+    try {
+        return asShort ? originalUTCGetSeconds.call(this) : padZero(originalUTCGetSeconds.call(this));
+    } catch (error) {
+        console.error("Error in getUTCSeconds:", error);
+        return originalUTCGetSeconds.call(this);
+    }
+}
+
+Date.prototype.getUTCFullTime = function(seperator = ":", hours = true, minutes = true, seconds = true, hoursAsShort, minutesAsShort, secondsAsShort) {
+    try {
+        return [hours ? this.getUTCHours(hoursAsShort) : "", minutes ? this.getUTCMinutes(minutesAsShort) : "", seconds ? this.getUTCSeconds(secondsAsShort) : ""]
+            .filter(value => value !== "")
+            .join(seperator);
+    } catch (error) {
+        console.error("Error in getUTCFullTime:", error);
+        return "";
+    }
+}
+
 // Delete the original methods from the date
 delete originalGetDay;
 delete originalGetMonth;
@@ -195,7 +299,18 @@ delete originalGetHours;
 delete originalGetMinutes;
 delete originalGetSeconds;
 delete originalGetTimezoneOffset;
+// UTC methods
+delete originalUTCGetDay;
+delete originalUTCGetMonth;
+delete originalUTCGetDate;
+delete originalUTCGetFullYear;
+delete originalUTCGetHours;
+delete originalUTCGetMinutes;
+delete originalUTCGetSeconds;
+// Varaibles
 delete timeZoneOptions;
+// Functions
 delete padZero;
 
+// Testing
 let d = new Date();
