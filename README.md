@@ -34,26 +34,26 @@ git clone https://github.com/Spark4444/BetterDateJs
 let date = new Date();
 
 // Get day in different formats
-console.log(date.getDay()); // e.g. "Sunday"
-console.log(date.getDay(true)); // e.g. "0"
-console.log(date.getDay(false, true)); // e.g. "Sun"
+console.log(date.getDay()); // "Sunday"
+console.log(date.getDay(true)); // "0"
+console.log(date.getDay(false, true)); // "Sun"
 
 // Get month in different formats
-console.log(date.getMonth()); // e.g. "January"
-console.log(date.getMonth(true)); // e.g. "0"
-console.log(date.getMonth(false, true)); // e.g. "Jan"
+console.log(date.getMonth()); // "January"
+console.log(date.getMonth(true)); // "0"
+console.log(date.getMonth(false, true)); // "Jan"
 
 // Get full time with custom separator
-console.log(date.getFullTime("-", true, true, true)); // e.g. "12-34-56"
+console.log(date.getFullTime("-", true, true, true)); // "12-34-56"
 
 // Get user's timezone information
-console.log(date.getTimeZone()); // e.g. "America/New_York"
-console.log(date.getContinent()); // e.g. "America"
-console.log(date.getCountry()); // e.g. "New_York"
-console.log(date.getZone()); // e.g. "Eastern Standard Time"
+console.log(date.getTimeZone()); // "America/New_York"
+console.log(date.getContinent()); // "America"
+console.log(date.getCountry()); // "New_York"
+console.log(date.getTimeZone()); // "Eastern Standard Time"
 
 // Get UTC full time with custom separator
-console.log(date.getUTCFullTime("-", true, true, true)); // e.g. "17-34-56"
+console.log(date.getUTCFullTime("-", true, true, true)); // "17-34-56"
 ```
 
 ## Current state of this project
