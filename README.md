@@ -50,10 +50,10 @@ console.log(date.getFullTime("-", true, true, true)); // "12-34-56"
 console.log(date.getTimeZone()); // "America/New_York"
 console.log(date.getContinent()); // "America"
 console.log(date.getCountry()); // "New_York"
-console.log(date.getTimeZone()); // "Eastern Standard Time"
+console.log(date.getZone()); // "Eastern Standard Time"
 
 // Get UTC full time with custom separator
-console.log(date.getUTCFullTime("-", true, true, true)); // "17-34-56"
+console.log(date.getUTCFullTime("-", true, true, true)); // e.g. "17-34-56"
 ```
 
 ## Current state of this project
