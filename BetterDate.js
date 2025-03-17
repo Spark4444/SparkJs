@@ -1,5 +1,5 @@
 // This is an improved version of the date class for javascript, i added new functions for better functionality and improved old ones for better usability.
-// Store the original methods of the Date object
+// Store the original functions of the Date object
 let originalGetDay = Date.prototype.getDay;
 let originalGetMonth = Date.prototype.getMonth;
 let originalGetDate = Date.prototype.getDate;
@@ -9,7 +9,7 @@ let originalGetHours = Date.prototype.getHours;
 let originalGetMinutes = Date.prototype.getMinutes;
 let originalGetSeconds = Date.prototype.getSeconds;
 let originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
-// UTC versions of the methods
+// UTC versions of the functions
 let originalUTCGetDay = Date.prototype.getUTCDay;
 let originalUTCGetMonth = Date.prototype.getUTCMonth;
 let originalUTCGetDate = Date.prototype.getUTCDate;
@@ -32,7 +32,7 @@ function padZero(value) {
     }
 }
 
-// Add new methods to the Date object
+// Add new functions to the Date object
 
 // Function to get the day of the week in new formats as a number (e.g. 0-6), short (e.g. Sun-Sat) or long (e.g. Sunday-Saturday)
 Date.prototype.getDay = function(asNumber, asShort) {
@@ -57,13 +57,13 @@ Date.prototype.getDay = function(asNumber, asShort) {
 Date.prototype.getMonth = function(asNumber, asShort) {
     try {
         if (asShort && asNumber) {
-            return originalGetMonth.call(this);
+            return originalGetMonth.call(this) + 1;
         }
         if (asShort) {
             return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][originalGetMonth.call(this)];
         }
         if (asNumber) {
-            return padZero(originalGetMonth.call(this));
+            return padZero(originalGetMonth.call(this) + 1);
         }
         return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][originalGetMonth.call(this)];
     } catch (error) {
@@ -92,16 +92,25 @@ Date.prototype.getDate = function(asString, asShort) {
 }
 
 // Function to get the year either as old version (e.g. it will count from 1900) or the normal year format
-Date.prototype.getYear = function(old) {
+Date.prototype.getYear = function(asShort, old) {
     try {
-        return old ? originalGetYear.call(this) : originalGetFullYear.call(this);
+        if (asShort && old) {
+            return originalGetYear.call(this).toString().slice(-2);
+        }
+        if (asShort) {
+            return originalGetFullYear.call(this).toString().slice(-2);
+        }
+        if (old) {
+            return originalGetYear.call(this);
+        }
+        return originalGetFullYear.call(this);
     } catch (error) {
         console.error("Error in getYear:", error);
         return originalGetYear.call(this);
     }
 }
 
-// Removed the getFullYear method from the Date object for redundancy since the getYear method does the same thing now
+// Removed the getFullYear function from the Date object for redundancy since the getYear function does the same thing now
 delete Date.prototype.getFullYear;
 
 // Function to get a formatted version of the date, e.g. 12.12.2020 if nothing is specified and you can specify the seperator for and if you need date, month or year and them as their short versions or not
@@ -239,8 +248,73 @@ Date.prototype.getFullDate = function(day = true, month = true, date = true, tim
     }
 }
 
-// UTC versions of the methods
-// All of them have the same functionality as the methods before but they will be in UTC format
+// Format your date in a custom way, you can use the following formats (e.g. {DDDD} for day of the week as a full string):
+// DDDD: Day of the week as a full string
+// DDD: Day of the week as a short string version
+// DD: Day of the week as a number with a zero
+// D: Day of the week as a short version
+// dd: Date of the month
+// d: Date of the month with a zero
+// MMMM: Month of the year as a string
+// MMM: Month of the year as a short string version
+// MM: Month of the year as a number with a zero
+// M: Month of the year as a short version
+// yyyy: Year
+// yy: Year as a short version
+// hh: Hours with a zero
+// h: Hours
+// mm: Minutes with a zero
+// m: Minutes
+// ss: Seconds with a zero
+// s: Seconds
+// o: Timezone offset in hours
+// oo: Timezone offset in minutes
+// t: Timezone
+// C: Continent
+// c: Country
+// z: Zone
+// %{%: {
+// %}%: }
+Date.prototype.formatDate = function(format) {
+    try {
+        let map = {
+            "DDDD": this.getDay(),
+            "DDD": this.getDay(false, true),
+            "DD": this.getDay(true),
+            "D": this.getDay(true, true),
+            "dd": this.getDate(),
+            "d": this.getDate(false, true),
+            "MMMM": this.getMonth(),
+            "MMM": this.getMonth(false, true),
+            "MM": this.getMonth(true),
+            "M": this.getMonth(true, true),
+            "yyyy": this.getYear(),
+            "yy": this.getYear(true),
+            "hh": this.getHours(),
+            "h": this.getHours(true),
+            "mm": this.getMinutes(),
+            "m": this.getMinutes(true),
+            "ss": this.getSeconds(),
+            "s": this.getSeconds(true),
+            "o": this.getTimezoneOffset(false, false),
+            "oo": this.getTimezoneOffset(true, false),
+            "t": this.getTimeZone(),
+            "C": this.getContinent(),
+            "c": this.getCountry(),
+            "z": this.getZone(false)
+        };
+
+        // Replace %{% and %}% with { and } respectively
+        format = format.replace(/%\{%/g, '{').replace(/%\}%/g, '}');
+
+        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => map[matched.slice(1, -1)]);
+    } catch (error) {
+        console.error("Error in formatDate:", error);
+        return "";
+    }
+}
+// UTC versions of the functions
+// All of them have the same functionality as the functions before but they will be in UTC format
 
 Date.prototype.getUTCDay = function(asNumber, asShort) {
     try {
@@ -263,13 +337,13 @@ Date.prototype.getUTCDay = function(asNumber, asShort) {
 Date.prototype.getUTCMonth = function(asNumber, asShort) {
     try {
         if (asShort && asNumber) {
-            return originalUTCGetMonth.call(this);
+            return originalUTCGetMonth.call(this) + 1;
         }
         if (asShort) {
             return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][originalUTCGetMonth.call(this)];
         }
         if (asNumber) {
-            return padZero(originalUTCGetMonth.call(this));
+            return padZero(originalUTCGetMonth.call(this) + 1);
         }
         return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][originalUTCGetMonth.call(this)];
     } catch (error) {
@@ -296,13 +370,21 @@ Date.prototype.getUTCDate = function(asString, asShort) {
     }
 }
 
-// Date doesn't have getUTCYear method so i used getUTCFullYear instead
-Date.prototype.getUTCYear = function() {
+Date.prototype.getUTCYear = function(asShort, old) {
     try {
+        if (asShort && old) {
+            return originalUTCGetFullYear.call(this).toString().slice(-2);
+        }
+        if (asShort) {
+            return originalUTCGetFullYear.call(this).toString().slice(-2);
+        }
+        if (old) {
+            return originalUTCGetFullYear.call(this) - 1900;
+        }
         return originalUTCGetFullYear.call(this);
     } catch (error) {
         console.error("Error in getUTCYear:", error);
-        return originalUTCGetYear.call(this);
+        return originalUTCGetFullYear.call(this);
     }
 }
 
@@ -373,7 +455,46 @@ Date.prototype.getUTCFullDate = function(day = true, month = true, date = true, 
     }
 }
 
-// Delete the original methods from the date
+Date.prototype.formatUTCDate = function(format) {
+    try {
+        let map = {
+            "DDDD": this.getUTCDay(),
+            "DDD": this.getUTCDay(false, true),
+            "DD": this.getUTCDay(true),
+            "D": this.getUTCDay(true, true),
+            "dd": this.getUTCDate(),
+            "d": this.getUTCDate(false, true),
+            "MMMM": this.getUTCMonth(),
+            "MMM": this.getUTCMonth(false, true),
+            "MM": this.getUTCMonth(true),
+            "M": this.getUTCMonth(true, true),
+            "yyyy": this.getUTCYear(),
+            "yy": this.getUTCYear(true),
+            "hh": this.getUTCHours(),
+            "h": this.getUTCHours(true),
+            "mm": this.getUTCMinutes(),
+            "m": this.getUTCMinutes(true),
+            "ss": this.getUTCSeconds(),
+            "s": this.getUTCSeconds(true),
+            "o": this.getTimezoneOffset(false, false),
+            "oo": this.getTimezoneOffset(true, false),
+            "t": this.getTimeZone(),
+            "C": this.getContinent(),
+            "c": this.getCountry(),
+            "z": this.getZone(false)
+        };
+
+        // Replace %{% and %}% with { and } respectively
+        format = format.replace(/%\{%/g, '{').replace(/%\}%/g, '}');
+
+        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => map[matched.slice(1, -1)]);
+    } catch (error) {
+        console.error("Error in formatUTCDate:", error);
+        return "";
+    }
+}
+
+// Delete the original functions from the date
 delete originalGetDay;
 delete originalGetMonth;
 delete originalGetDate;
@@ -383,7 +504,7 @@ delete originalGetHours;
 delete originalGetMinutes;
 delete originalGetSeconds;
 delete originalGetTimezoneOffset;
-// UTC methods
+// UTC functions
 delete originalUTCGetDay;
 delete originalUTCGetMonth;
 delete originalUTCGetDate;
