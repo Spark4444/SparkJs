@@ -104,15 +104,15 @@ Date.prototype.getYear = function(old) {
 // Removed the getFullYear method from the Date object for redundancy since the getYear method does the same thing now
 delete Date.prototype.getFullYear;
 
-// Function to get the full date in a formatted way, you can specify what you want to include in the output
-Date.prototype.getFormattedDate = function(seperator = ".", date = true, month = [true], year = true) {
+// Function to get a formatted version of the date, e.g. 12.12.2020 if nothing is specified and you can specify the seperator for and if you need date, month or year and them as their short versions or not
+Date.prototype.getFullFormattedDate = function(seperator = ".", date = true, month = [true], year = true) {
     try {
         let sdate = date === true ? this.getDate() : (date ? this.getDate(...date) : "");
         let smonth = month === true ? this.getMonth() : (month ? this.getMonth(...month) : "");
         let syear = year === true ? this.getYear() : (year ? this.getYear(...year) : "");
         return [sdate, smonth, syear].filter(value => value !== "").join(seperator);
     } catch (error) {
-        console.error("Error in getFullDateNumber:", error);
+        console.error("Error in getFullFormattedDate:", error);
         return "";
     }
 
@@ -227,7 +227,7 @@ Date.prototype.getFullDate = function(day = true, month = true, date = true, tim
     try {
         let sday = day === true ? this.getDay() : (day ? this.getDay(...day) : "");
         let smonth = month === true ? this.getMonth() : (month ? this.getMonth(...month) : "");
-        let sdate = date === true ? this.getFormattedDate() : (date ? this.getFormattedDate(...date) : "");
+        let sdate = date === true ? this.getFullFormattedDate() : (date ? this.getFullFormattedDate(...date) : "");
         let stime = time === true ? this.getFullTime() : (time ? this.getFullTime(...time) : "");
         let soffset = offset === true ? this.getTimezoneOffset() : (offset ? this.getTimezoneOffset(...offset) : "");
         let szone = zone === true ? this.getZone() : (zone ? this.getZone(...zone) : "");
@@ -278,9 +278,18 @@ Date.prototype.getUTCMonth = function(asNumber, asShort) {
     }
 }
 
-Date.prototype.getUTCDate = function(asShort) {
+Date.prototype.getUTCDate = function(asString, asShort) {
     try {
-        return asShort ? originalUTCGetDate.call(this) : padZero(originalUTCGetDate.call(this));
+        if (asString && asShort) {
+            return this.getUTCDay(false, true);
+        }
+        if (asString) {
+            return this.getUTCDay();
+        }
+        if (asShort) {
+            return originalUTCGetDate.call(this);
+        }
+        return padZero(originalUTCGetDate.call(this));
     } catch (error) {
         console.error("Error in getUTCDate:", error);
         return originalUTCGetDate.call(this);
@@ -299,15 +308,14 @@ Date.prototype.getUTCYear = function() {
 
 delete Date.prototype.getUTCFullYear;
 
-// Function to get the full date in a formatted way in UTC, you can specify what you want to include in the output
-Date.prototype.getUTCFormattedDate = function(seperator = ".", date = true, month = [true], year = true) {
+Date.prototype.getUTCFullFormattedDate = function(seperator = ".", date = true, month = [true], year = true) {
     try {
         let sdate = date === true ? this.getUTCDate() : (date ? this.getUTCDate(...date) : "");
         let smonth = month === true ? this.getUTCMonth() : (month ? this.getUTCMonth(...month) : "");
         let syear = year === true ? this.getUTCYear() : (year ? this.getUTCYear(...year) : "");
         return [sdate, smonth, syear].filter(value => value !== "").join(seperator);
     } catch (error) {
-        console.error("Error in getUTCFormattedDate:", error);
+        console.error("Error in getUTCFullFormattedDate:", error);
         return "";
     }
 }
@@ -355,7 +363,7 @@ Date.prototype.getUTCFullDate = function(day = true, month = true, date = true, 
     try {
         let sday = day === true ? this.getUTCDay() : (day ? this.getUTCDay(...day) : "");
         let smonth = month === true ? this.getUTCMonth() : (month ? this.getUTCMonth(...month) : "");
-        let sdate = date === true ? this.getUTCFormattedDate() : (date ? this.getUTCFormattedDate(...date) : "");
+        let sdate = date === true ? this.getUTCFullFormattedDate() : (date ? this.getUTCFullFormattedDate(...date) : "");
         let stime = time === true ? this.getUTCFullTime() : (time ? this.getUTCFullTime(...time) : "");
         let szone = zone === true ? this.getZone() : (zone ? this.getZone(...zone) : "");
         return [sday, smonth, sdate, stime, szone].filter(value => value !== "").join(" ");
