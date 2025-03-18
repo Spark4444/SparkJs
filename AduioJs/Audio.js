@@ -1,5 +1,7 @@
 // Audio class to manage audio elements
 class Audio {
+    volume = 100;
+    
     //Tracks
     tracks = [
         // Select the audio elements

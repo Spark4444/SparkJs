@@ -1,5 +1,6 @@
 # SparkJs
 This JavaScript library provides various functionalities such as controlling audio via the `AudioJs` class and testing your code via the `TestJs` class.
+Each class has their own documentation in their respective .md file which explains everything, how to use it and examples.
 
 ## AudioJs
 A class for manipulating audio elements with methods for pausing, playing, muting, etc.
