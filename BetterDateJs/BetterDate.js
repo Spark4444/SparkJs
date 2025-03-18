@@ -18,6 +18,7 @@ let originalUTCGetHours = Date.prototype.getUTCHours;
 let originalUTCGetMinutes = Date.prototype.getUTCMinutes;
 let originalUTCGetSeconds = Date.prototype.getUTCSeconds;
 let originalUTCGetTimezoneOffset = Date.prototype.getUTCOffset;
+import { padZero } from "./padZero.js";
 
 // Get the timezone options for the user
 let timeZoneOptions = Intl.DateTimeFormat().resolvedOptions();

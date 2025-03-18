@@ -1,60 +1,58 @@
-# Better Date Js
-This JavaScript library is made for better formatting for the default JavaScript Date object
+# SparkJs
+This JavaScript library provides various functionalities such as controlling audio via the `AudioJs` class and testing your code via the `TestJs` class.
+
+## AudioJs
+A class for manipulating audio elements with methods for pausing, playing, muting, etc.
+
+## BetterDateJs
+An improved version of the original Date class with new ways of formatting dates.
+
+## TestJs
+A class for testing code. You can enter input, actual, and expected values to test your code, and it returns whether the result matches or not.
 
 ## Installation
 
-1. Press the blue button `<> Code`
-2. Hover over the `Download Zip` button and click it to download the zip version of this repository
+### Option 1: Download Raw File
+Download the raw file by clicking on the respective JS file inside its folder and then pressing the `Download raw file` button on the middle right of the screen after navigating inside the file on GitHub.
 
-### &nbsp;&nbsp;&nbsp;Or
+### Option 2: Download Zip
+1. Press the blue button `<> Code`.
+2. Hover over the `Download Zip` button and click it to download the zip version of this repository.
 
-Use the git clone command to copy it onto your computer
+### Option 3: Clone Repository
+Use the git clone command to copy it onto your computer:
 ```bash
 git clone https://github.com/Spark4444/BetterDateJs
 ```
 
 ## Usage
-* Import the library into your project using 
+
+### Importing the Library
+* Import the library into your HTML using:
+```html
+<script src="filePath"></script>
+```
 <br>
- `<script src="path to the file you downloaded"></script>`
 
-## Features
-* Better `getDay` function with options for number, short, and long formats.
-* Better `getMonth` function with options for number, short, and long formats.
-* Better `getDate` function with options for short and padded formats.
-* Better `getYear` function with options for old and full year formats.
-* Better `getHours`, `getMinutes`, and `getSeconds` functions with options for short and padded formats.
-* New `getFullTime` function for formatted time with customizable separators.
-* Better `getTimezoneOffset` function with options for hours and minutes.
-* New functions to get user's timezone, continent, country, and zone.
-* UTC versions are included as well.
-
-## Examples
+* Or import using ES6 modules (you need to export it first):
 ```javascript
-let date = new Date();
+import className from "filePath";
+```
+or
+```javascript
+import { className } from "filePath";
+```
+<br>
 
-// Get day in different formats
-console.log(date.getDay()); // "Sunday"
-console.log(date.getDay(true)); // "0"
-console.log(date.getDay(false, true)); // "Sun"
-
-// Get month in different formats
-console.log(date.getMonth()); // "January"
-console.log(date.getMonth(true)); // "0"
-console.log(date.getMonth(false, true)); // "Jan"
-
-// Get full time with custom separator
-console.log(date.getFullTime("-", true, true, true)); // "12-34-56"
-
-// Get user's timezone information
-console.log(date.getTimeZone()); // "America/New_York"
-console.log(date.getContinent()); // "America"
-console.log(date.getCountry()); // "New_York"
-console.log(date.getZone()); // "Eastern Standard Time"
-
-// Get UTC full time with custom separator
-console.log(date.getUTCFullTime("-", true, true, true)); // e.g. "17-34-56"
+* Or import using CommonJS modules:
+```javascript
+let className = require("filePath");
 ```
 
-## Current state of this project
-Finished
+## Features
+- Audio manipulation
+- Enhanced date formatting
+- Code testing functionality
+
+## Current State of This Project
+The project is currently functional and new content is being added gradually.
