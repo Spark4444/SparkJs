@@ -303,11 +303,14 @@ Date.prototype.formatDate = function(format) {
             "c": this.getCountry(),
             "z": this.getZone(false)
         };
+        console.log(map);
 
         // Replace %{% and %}% with { and } respectively
         format = format.replace(/%\{%/g, '{').replace(/%\}%/g, '}');
 
-        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => map[matched.slice(1, -1)]);
+        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => {
+            return map[matched.slice(1, -1)];
+        });
     } catch (error) {
         console.error("Error in formatDate:", error);
         return "";
@@ -493,27 +496,3 @@ Date.prototype.formatUTCDate = function(format) {
         return "";
     }
 }
-
-// Delete the original functions from the date
-originalGetDate = undefined;
-originalGetMonth = undefined;
-originalGetYear = undefined;
-originalGetFullYear = undefined;
-originalGetHours = undefined;
-originalGetMinutes = undefined;
-originalGetSeconds = undefined;
-originalGetTimezoneOffset = undefined;
-// UTC functions
-originalUTCGetDay = undefined;
-originalUTCGetMonth = undefined;
-originalUTCGetDate = undefined;
-originalUTCGetFullYear = undefined;
-originalUTCGetHours = undefined;
-originalUTCGetMinutes = undefined;
-originalUTCGetSeconds = undefined;
-
-// Varaibles
-timeZoneOptions = undefined;
-
-// Functions
-padZero = undefined;
