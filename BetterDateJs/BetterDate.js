@@ -517,5 +517,3 @@ timeZoneOptions = undefined;
 
 // Functions
 padZero = undefined;
-
-export default {};
