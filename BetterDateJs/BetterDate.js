@@ -18,7 +18,6 @@ let originalUTCGetHours = Date.prototype.getUTCHours;
 let originalUTCGetMinutes = Date.prototype.getUTCMinutes;
 let originalUTCGetSeconds = Date.prototype.getUTCSeconds;
 let originalUTCGetTimezoneOffset = Date.prototype.getUTCOffset;
-import { padZero } from "./padZero.js";
 
 // Get the timezone options for the user
 let timeZoneOptions = Intl.DateTimeFormat().resolvedOptions();
@@ -496,24 +495,27 @@ Date.prototype.formatUTCDate = function(format) {
 }
 
 // Delete the original functions from the date
-delete originalGetDay;
-delete originalGetMonth;
-delete originalGetDate;
-delete originalGetYear;
-delete originalGetFullYear;
-delete originalGetHours;
-delete originalGetMinutes;
-delete originalGetSeconds;
-delete originalGetTimezoneOffset;
+originalGetDate = undefined;
+originalGetMonth = undefined;
+originalGetYear = undefined;
+originalGetFullYear = undefined;
+originalGetHours = undefined;
+originalGetMinutes = undefined;
+originalGetSeconds = undefined;
+originalGetTimezoneOffset = undefined;
 // UTC functions
-delete originalUTCGetDay;
-delete originalUTCGetMonth;
-delete originalUTCGetDate;
-delete originalUTCGetFullYear;
-delete originalUTCGetHours;
-delete originalUTCGetMinutes;
-delete originalUTCGetSeconds;
+originalUTCGetDay = undefined;
+originalUTCGetMonth = undefined;
+originalUTCGetDate = undefined;
+originalUTCGetFullYear = undefined;
+originalUTCGetHours = undefined;
+originalUTCGetMinutes = undefined;
+originalUTCGetSeconds = undefined;
+
 // Varaibles
-delete timeZoneOptions;
+timeZoneOptions = undefined;
+
 // Functions
-delete padZero;
+padZero = undefined;
+
+export default {};
