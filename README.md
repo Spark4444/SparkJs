@@ -8,6 +8,9 @@ A class for manipulating audio elements with methods for pausing, playing, mutin
 ## BetterDateJs
 An improved version of the original Date class with new ways of formatting dates.
 
+## CSSManager
+A small scale Js class for manipulating CSS thru your JS. It allows you manipulate non-accessible css properties like :hover, @media, etc.
+
 ## TestJs
 A class for testing code. You can enter input, actual, and expected values to test your code, and it returns whether the result matches or not.
 
