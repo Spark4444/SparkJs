@@ -1,3 +1,6 @@
+# BetterDateJs
+An improved version of the JavaScript Date class with enhanced functionality and better usability.
+
 ## Features
 * Better `getDay`, `getMonth` functions with options for number, short, and long formats.
 * Better `getDate` function with options for short and padded formats.

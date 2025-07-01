@@ -303,10 +303,9 @@ Date.prototype.formatDate = function(format) {
             "c": this.getCountry(),
             "z": this.getZone(false)
         };
-        console.log(map);
 
         // Replace %{% and %}% with { and } respectively
-        format = format.replace(/%\{%/g, '{').replace(/%\}%/g, '}');
+        format = format.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
 
         return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => {
             return map[matched.slice(1, -1)];
@@ -488,11 +487,18 @@ Date.prototype.formatUTCDate = function(format) {
         };
 
         // Replace %{% and %}% with { and } respectively
-        format = format.replace(/%\{%/g, '{').replace(/%\}%/g, '}');
+        format = format.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
 
         return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => map[matched.slice(1, -1)]);
     } catch (error) {
         console.error("Error in formatUTCDate:", error);
         return "";
     }
+}
+
+// Export the BetterDate class for Node.js or browser environments
+if (typeof module !== "undefined" && module.exports) {
+    // Node.js environment
+    module.exports = Date;
+    exports.default = Date;
 }

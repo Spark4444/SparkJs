@@ -1,0 +1,25 @@
+{
+  "name": "@spark4444/better-date-js",
+  "version": "1.3.0",
+  "description": "An improved version of the JavaScript Date class with enhanced functionality and better usability",
+  "main": "BetterDate.js",
+  "types": "BetterDate.d.ts",
+  "readme": "BetterDate.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "date",
+    "javascript",
+    "typescript",
+    "utc", 
+    "formatting",
+    "timezone"
+  ],
+  "author": "Spark4444",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Spark4444/SparkJs"
+  }
+}
