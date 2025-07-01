@@ -304,12 +304,24 @@ Date.prototype.formatDate = function(format) {
             "z": this.getZone(false)
         };
 
-        // Replace %{% and %}% with { and } respectively
-        format = format.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
-
-        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => {
+        let result = format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => {
             return map[matched.slice(1, -1)];
         });
+
+        let matches = result.match(/{(?!%)[^}]*(?<!%)}/g);
+
+        if (matches) {
+            matches = matches.join(", ");
+        }
+
+        if (matches) {
+            console.warn("Warning: Unkown formats found in formatDate:", matches);
+        }
+
+        // Replace %{% and %}% with { and } respectively
+        result = result.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
+
+        return result;
     } catch (error) {
         console.error("Error in formatDate:", error);
         return "";
@@ -486,19 +498,31 @@ Date.prototype.formatUTCDate = function(format) {
             "z": this.getZone(false)
         };
 
-        // Replace %{% and %}% with { and } respectively
-        format = format.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
+        let result = format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => {
+            return map[matched.slice(1, -1)];
+        });
 
-        return format.replace(/{(DDDD|DDD|DD|D|dd|d|MMMM|MMM|MM|M|yyyy|yy|hh|h|mm|m|ss|s|o|oo|t|C|c|z)}/g, matched => map[matched.slice(1, -1)]);
+        let matches = result.match(/{(?!%)[^}]*(?<!%)}/g);
+
+        if (matches) {
+            matches = matches.join(", ");
+        }
+
+        if (matches) {
+            console.warn("Warning: Unkown formats found in formatUTCDate:", matches);
+        }
+
+        // Replace %{% and %}% with { and } respectively
+        result = result.replace(/%\{%/g, "{").replace(/%\}%/g, "}");
+        return result;
     } catch (error) {
         console.error("Error in formatUTCDate:", error);
         return "";
     }
 }
 
-// Export the BetterDate class for Node.js or browser environments
+// Export the BetterDate class for Node.js only if the module is defined
 if (typeof module !== "undefined" && module.exports) {
-    // Node.js environment
     module.exports = Date;
     exports.default = Date;
 }

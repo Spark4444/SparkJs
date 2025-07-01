@@ -11,7 +11,7 @@ An improved version of the JavaScript Date class with enhanced functionality and
 * New functions to get user's timezone, continent, country, and zone.
 * New `getFullFormattedDate` function for formatted date with customizable separators.
 * New `getFullDate` function for getting the full date in a formatted way.
-* New `formatDate` function for custom date formatting.
+* New `formatDate` function for custom date formatting also now has warnings if the format contains unknown formats.
 * UTC versions are included as well.
 
 ## Examples
