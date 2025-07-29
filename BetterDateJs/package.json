@@ -1,6 +1,6 @@
 {
   "name": "@spark4444/better-date-js",
-  "version": "1.4.0",
+  "version": "1.4.5",
   "description": "An improved version of the JavaScript Date class with enhanced functionality and better usability",
   "main": "BetterDate.js",
   "types": "BetterDate.d.ts",

@@ -14,6 +14,11 @@ An improved version of the JavaScript Date class with enhanced functionality and
 * New `formatDate` function for custom date formatting also now has warnings if the format contains unknown formats.
 * UTC versions are included as well.
 
+## Installation
+```bash
+npm install @spark4444/better-date-js
+```
+
 ## Examples
 ```javascript
 let date = new Date();
@@ -58,3 +63,6 @@ console.log(date.getUTCFullDate(true, true, true, true, true)); // "Sunday Janua
 // Format UTC date with custom format
 console.log(date.formatUTCDate("{DDDD}, {MMMM} {dd}, {yyyy} {hh}:{mm}:{ss} {t}")); // "Sunday, January 12, 2020 17:34:56 America/New_York"
 ```
+
+### Current state of this project
+finished
