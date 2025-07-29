@@ -5,10 +5,6 @@ Each class has their own documentation in their respective .md file which explai
 ## AudioJs
 A class for manipulating audio elements with methods for pausing, playing, muting, etc.
 
-## BetterDateJs
-An improved version of the original Date class with new ways of formatting dates.
-[npm](https://www.npmjs.com/package/@spark4444/better-date-js)
-
 ## CSSManager
 A small scale Js class for manipulating CSS thru your JS. It allows you manipulate non-accessible css properties like :hover, @media, etc.
 
@@ -28,12 +24,6 @@ Download the raw file by clicking on the respective JS file inside its folder an
 Use the git clone command to copy it onto your computer:
 ```bash
 git clone https://github.com/Spark4444/SparkJs
-```
-
-### Option 4: Install via npm
-You can install the library using npm:
-```bash
-npm install @spark4444/better-date-js
 ```
 
 ## Usage
@@ -62,7 +52,6 @@ let className = require("filePath");
 
 ## Features
 - Audio manipulation
-- Enhanced date formatting
 - Code testing functionality
 
 ## Current State of This Project
